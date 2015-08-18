@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dogweather/validated_object.svg?branch=master)](https://travis-ci.org/dogweather/validated_object)
+
 # ValidatedObject
 
 Uses
