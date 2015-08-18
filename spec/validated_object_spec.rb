@@ -5,7 +5,7 @@ describe ValidatedObject do
     expect(ValidatedObject::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'can be referenced' do
+    expect(ValidatedObject::Base).not_to be nil
   end
 end
