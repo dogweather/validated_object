@@ -11,7 +11,7 @@ module ValidatedObject
   # creates very readable error messages.
   #
   # @example Writing a self-validating object
-  #   class Dog < Eaternet::ValidatedObject
+  #   class Dog < ValidatedObject::Base
   #     attr_accessor :name, :birthday
   #
   #     validates :name, presence: true
@@ -36,7 +36,7 @@ module ValidatedObject
   #   dog1.valid?  # => false
   #   dog1.check_validations!  # => ArgumentError: Birthday is class String, not Date
   #
-  # @see Eaternet::ValidatedObject::TypeValidator
+  # @see ValidatedObject::Base::TypeValidator
   # @see http://yehudakatz.com/2010/01/10/activemodel-make-any-ruby-object-feel-like-activerecord/ ActiveModel: Make Any Ruby Object Feel Like ActiveRecord, Yehuda Katz
   # @see http://www.rubyinside.com/rails-3-0s-activemodel-how-to-give-ruby-classes-some-activerecord-magic-2937.html Rails 3.0′s ActiveModel: How To Give Ruby Classes Some ActiveRecord Magic, Peter Cooper
   class Base
@@ -65,7 +65,7 @@ module ValidatedObject
     # access by subclasses.
     #
     # @example Ensure that weight is a floating point number
-    #   class Dog < ValidatedObject
+    #   class Dog < ValidatedObject::Base
     #     attr_accessor :weight
     #     validates :weight, type: Float
     #   end
