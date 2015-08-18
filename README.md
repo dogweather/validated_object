@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dogweather/validated_object.svg?branch=master)](https://travis-ci.org/dogweather/validated_object)
+[![Build Status](https://travis-ci.org/dogweather/validated_object.svg?branch=master)](https://travis-ci.org/dogweather/validated_object) [![Code Climate](https://codeclimate.com/github/dogweather/validated_object/badges/gpa.svg)](https://codeclimate.com/github/dogweather/validated_object)
 
 # ValidatedObject
 
