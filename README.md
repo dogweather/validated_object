@@ -56,7 +56,7 @@ dog1.birthday = Date.new(2015, 1, 23)
 dog1.valid?  # => true
 ```
 
-### Making an instance invalid
+### Making an instance _invalid_
 
 ```ruby
 dog1.birthday = '2015-01-23'
