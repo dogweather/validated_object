@@ -1,12 +1,11 @@
-[![Build Status](https://travis-ci.org/dogweather/validated_object.svg?branch=master)](https://travis-ci.org/dogweather/validated_object) [![Code Climate](https://codeclimate.com/github/dogweather/validated_object/badges/gpa.svg)](https://codeclimate.com/github/dogweather/validated_object)
+[![Gem Version](https://badge.fury.io/rb/validated_object.svg)](https://badge.fury.io/rb/validated_object) [![Build Status](https://travis-ci.org/dogweather/validated_object.svg?branch=master)](https://travis-ci.org/dogweather/validated_object) [![Code Climate](https://codeclimate.com/github/dogweather/validated_object/badges/gpa.svg)](https://codeclimate.com/github/dogweather/validated_object)
 
 # ValidatedObject
 
 Uses
 [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates)
-to create self-validating Plain Old Ruby objects. This is especially useful
-when importing data from one system into another. This gem also creates very
-readable error messages.
+to create self-validating Plain Old Ruby objects. I wrote it for helping with CSV data imports into my Rails apps.
+Very readable error messages are also important in that context, to track down parsing errors. This gem provides those too.
 
 
 ## Installation
