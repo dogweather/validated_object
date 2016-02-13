@@ -29,7 +29,7 @@ Or install it yourself as:
 
 ### Writing a self-validating object
 
-All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus the `TypeValidator`.
+All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus a new one, `TypeValidator`.
 
 ```ruby
 class Dog < ValidatedObject::Base
