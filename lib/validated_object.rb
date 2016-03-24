@@ -1,5 +1,5 @@
 require 'active_model'
-require "validated_object/version"
+require 'validated_object/version'
 
 module ValidatedObject
   # @abstract Subclass and add `attr_accessor` and validations
@@ -49,15 +49,17 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization.
-    def initialize(&block)
-      block.call(self)
+    def initialize
+      yield(self)
       check_validations!
+      self
     end
 
     # Run any validations and raise an error if invalid.
     # @raise [ArgumentError] if any validations fail.
     def check_validations!
-      fail ArgumentError, errors.full_messages.join('; ') if invalid?
+      raise ArgumentError, errors.full_messages.join('; ') if invalid?
+      self
     end
 
     # A custom validator which ensures an object is a certain class.
