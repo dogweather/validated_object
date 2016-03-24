@@ -62,23 +62,23 @@ module ValidatedObject
       self
     end
 
-    # A custom validator which ensures an object is a certain class.
+    # A custom validator which ensures an object is an instance of a class
+    # or a subclass.
     # It's here as a nested class in {ValidatedObject} for easy
-    # access by subclasses.
+    # access by subclasses of {ValidatedObject::Base}.
     #
-    # @example Ensure that weight is a floating point number
+    # @example Ensure that weight is a number
     #   class Dog < ValidatedObject::Base
     #     attr_accessor :weight
-    #     validates :weight, type: Float
+    #     validates :weight, type: Numeric
     #   end
     class TypeValidator < ActiveModel::EachValidator
       # @return [nil]
       def validate_each(record, attribute, value)
         expected = options[:with]
-        actual = value.class
-        return if actual == expected
+        return if value.kind_of?(expected)
 
-        msg = options[:message] || "is class #{actual}, not #{expected}"
+        msg = options[:message] || "is class #{value.class}, not #{expected}"
         record.errors.add attribute, msg
       end
     end
