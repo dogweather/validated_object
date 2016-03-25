@@ -1,5 +1,5 @@
 require 'active_model'
-require "validated_object/version"
+require 'validated_object/version'
 
 module ValidatedObject
   # @abstract Subclass and add `attr_accessor` and validations
@@ -49,34 +49,36 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization.
-    def initialize(&block)
-      block.call(self)
+    def initialize
+      yield(self)
       check_validations!
+      self
     end
 
     # Run any validations and raise an error if invalid.
     # @raise [ArgumentError] if any validations fail.
     def check_validations!
-      fail ArgumentError, errors.full_messages.join('; ') if invalid?
+      raise ArgumentError, errors.full_messages.join('; ') if invalid?
+      self
     end
 
-    # A custom validator which ensures an object is a certain class.
+    # A custom validator which ensures an object is an instance of a class
+    # or a subclass.
     # It's here as a nested class in {ValidatedObject} for easy
-    # access by subclasses.
+    # access by subclasses of {ValidatedObject::Base}.
     #
-    # @example Ensure that weight is a floating point number
+    # @example Ensure that weight is a number
     #   class Dog < ValidatedObject::Base
     #     attr_accessor :weight
-    #     validates :weight, type: Float
+    #     validates :weight, type: Numeric
     #   end
     class TypeValidator < ActiveModel::EachValidator
       # @return [nil]
       def validate_each(record, attribute, value)
         expected = options[:with]
-        actual = value.class
-        return if actual == expected
+        return if value.kind_of?(expected)
 
-        msg = options[:message] || "is class #{actual}, not #{expected}"
+        msg = options[:message] || "is class #{value.class}, not #{expected}"
         record.errors.add attribute, msg
       end
     end
