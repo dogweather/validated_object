@@ -38,9 +38,9 @@ end
 ```
 
 > This example also demonstrates the extent of my meta-programming skills. ;-) I
-decided to simply implement my client code using block constructors, ensuring
-that the `initializer` will always test for validity and throw an exeption if
-needed.
+decided to simply implement my client code using inheritance and block
+constructors, ensuring that the `initializer` will always test for validity and
+throw an exeption if needed.
 
 ```ruby
 # We can also explicitly test for validity because all of
@@ -62,7 +62,26 @@ spot.valid?  # => false
 spot.check_validations!  # => ArgumentError: Birthday is class String, not Date
 ```
 
+> Note the clear, explicit error message. These are great when reading a log
+file following a data import.
 
+I often use a validated object in a loop to import data, e.g.:
+
+```ruby
+# Import a CSV file of dogs
+dogs = []
+csv.next_row do |row|
+  begin
+    dogs << Dog.new { |d| d.name = row.name }
+  rescue ArgumentError => e
+    logger.warn(e)
+  end
+end
+```
+
+The result is that `dogs` is an array of guaranteed valid Dog objects. And the
+error log lists unparseable rows with good info for tracking down problems in
+the data.
 
 ## Installation
 
