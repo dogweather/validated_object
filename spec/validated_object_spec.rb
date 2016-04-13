@@ -45,11 +45,21 @@ describe ValidatedObject do
     it 'handles Boolean types' do
       class Apple4 < ValidatedObject::Base
         attr_accessor :rotten
-        validates :diameter, type: Boolean
+        validates :rotten, type: Boolean
       end
 
-      small_apple = Apple3.new { |a| a.rotten = true }
-      expect( small_apple ).to be_valid
+      rotten_apple = Apple4.new { |a| a.rotten = true }
+      expect( rotten_apple ).to be_valid
     end
+
+    it 'rejects invalid boolean types' do
+      class Apple5 < ValidatedObject::Base
+        attr_accessor :rotten
+        validates :rotten, type: Boolean
+      end
+
+      expect { Apple5.new { |a| a.rotten = 1 } }.to raise_error(ArgumentError)
+    end
+
   end
 end

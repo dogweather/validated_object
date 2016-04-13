@@ -42,6 +42,10 @@ module ValidatedObject
   class Base
     include ActiveModel::Validations
 
+    # Implements a pseudo-boolean class.
+    class Boolean
+    end
+
     # Instantiate and validate a new object.
     #
     # @yieldparam [ValidatedObject] new_object the yielded new object
@@ -63,22 +67,27 @@ module ValidatedObject
     end
 
     # A custom validator which ensures an object is an instance of a class
-    # or a subclass.
-    # It's here as a nested class in {ValidatedObject} for easy
-    # access by subclasses of {ValidatedObject::Base}.
+    # or a subclass. It supports a pseudo-boolean class for convenient
+    # validation. (Ruby doesn't have a built-in Boolean.)
     #
     # @example Ensure that weight is a number
     #   class Dog < ValidatedObject::Base
-    #     attr_accessor :weight
+    #     attr_accessor :weight, :neutered
     #     validates :weight, type: Numeric
+    #     validates :neutered, type: Boolean
     #   end
     class TypeValidator < ActiveModel::EachValidator
       # @return [nil]
       def validate_each(record, attribute, value)
-        expected = options[:with]
-        return if value.kind_of?(expected)
+        expected_class = options[:with]
 
-        msg = options[:message] || "is class #{value.class}, not #{expected}"
+        if expected_class == Boolean
+          return if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+        else
+          return if value.is_a?(expected_class)
+        end
+
+        msg = options[:message] || "is class #{value.class}, not #{expected_class}"
         record.errors.add attribute, msg
       end
     end
