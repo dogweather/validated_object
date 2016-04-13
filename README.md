@@ -65,6 +65,9 @@ spot.check_validations!  # => ArgumentError: Birthday is class String, not Date
 > Note the clear, explicit error message. These are great when reading a log
 file following a data import.
 
+
+### Use in parsing data
+
 I often use a validated object in a loop to import data, e.g.:
 
 ```ruby
