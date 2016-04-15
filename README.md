@@ -51,10 +51,10 @@ spot.birthday = Date.new(2015, 1, 23)
 spot.valid?  # => true
 ```
 
-### Demonstrating an invalid instance
+### Good error messages
 
-An instance can become invalid. Any of the standard Validations methods can be
-used to test it, or the custom `check_validations!` convenience method.
+Any of the standard Validations methods can be
+used to test an instance, plus the custom `check_validations!` convenience method:
 
 ```ruby
 spot.birthday = '2015-01-23'
@@ -63,7 +63,12 @@ spot.check_validations!  # => ArgumentError: Birthday is class String, not Date
 ```
 
 > Note the clear, explicit error message. These are great when reading a log
-file following a data import.
+file following a data import. It describes all the invalid conditions:
+
+```ruby
+spot.name = nil
+spot.check_validations!  # => ArgumentError: Name can't be blank; Birthday is class String, not Date
+```
 
 
 ### Use in parsing data
