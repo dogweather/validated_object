@@ -9,7 +9,7 @@ I wrote it to help with CSV data imports. I wanted:
 * Clean minimal syntax
 
 This is a very tiny layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (Around 18 lines of code.) So if you know how to use Rails Validations, you'll know how to use ValidatedObject.
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you'll know how to use ValidatedObject.
 
 ## Usage
 
