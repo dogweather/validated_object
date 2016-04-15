@@ -16,7 +16,7 @@ This is a very tiny layer around
 
 ### Writing a self-validating object
 
-All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus a new one, `TypeValidator`. All classes can be checked, as well as a pseudo-class `Boolean`. 
+All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus a new one, `TypeValidator`.  
 
 ```ruby
 class Dog < ValidatedObject::Base
@@ -27,7 +27,13 @@ class Dog < ValidatedObject::Base
 end
 ```
 
-The `TypeValidator` is what enables `type: Date`, above.
+The `TypeValidator` is what enables `type: Date`, above. All classes can be checked, as well as a pseudo-class `Boolean`. E.g.:
+
+```ruby
+#...
+validates premium_membership, type: Boolean
+#...
+```
 
 ### Instantiating and automatically validating
 
