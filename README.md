@@ -27,6 +27,8 @@ class Dog < ValidatedObject::Base
 end
 ```
 
+The `TypeValidator` is what enables `type: Date`, above.
+
 ### Instantiating and automatically validating
 
 ```ruby
