@@ -31,7 +31,7 @@ The `TypeValidator` is what enables `type: Date`, above. All classes can be chec
 
 ```ruby
 #...
-validates premium_membership, type: Boolean
+validates :premium_membership, type: Boolean
 #...
 ```
 
