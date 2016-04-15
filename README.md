@@ -62,8 +62,9 @@ spot.valid?  # => false
 spot.check_validations!  # => ArgumentError: Birthday is class String, not Date
 ```
 
-> Note the clear, explicit error message. These are great when reading a log
-file following a data import. It describes all the invalid conditions:
+Note the clear, explicit error message. These are great when reading a log
+file following a data import. It describes all the invalid conditions. Let's 
+test it by making another attribute invalid:
 
 ```ruby
 spot.name = nil
