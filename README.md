@@ -3,7 +3,9 @@
 # ValidatedObject
 
 Create self-validating Ruby objects with minimal code. 
-I wrote it to help with CSV data imports. I wanted:
+I wrote it to help with CSV data imports.
+
+## Goals
 
 * Very readable error messages
 * Clean minimal syntax
