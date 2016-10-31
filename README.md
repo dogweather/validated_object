@@ -2,8 +2,8 @@
 
 # ValidatedObject
 
-Create self-validating Ruby objects with minimal code. 
-I wrote it to help with CSV data imports.
+Plain Old Ruby Objects + Rails Validations = self-checking Ruby objects. 
+
 
 ## Goals
 
@@ -11,7 +11,8 @@ I wrote it to help with CSV data imports.
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you'll know how to use ValidatedObject.
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you'll know how to use ValidatedObject. I wrote it to help with CSV data imports.
+
 
 ## Usage
 
