@@ -11,7 +11,7 @@ Plain Old Ruby Objects + Rails Validations = self-checking Ruby objects.
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports.
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website microdata generation](https://github.com/dogweather/schema-dot-org).
 
 
 ## Usage
