@@ -56,7 +56,7 @@ module ValidatedObject
       raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
 
       attributes.keys.each do |key|
-        self.send "#{key}=", attributes.fetch(key)
+        self.instance_variable_set "@#{key}".to_sym, attributes.fetch(key)
       end
       check_validations!
       self
