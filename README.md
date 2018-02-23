@@ -23,10 +23,10 @@ All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveM
 
 ```ruby
 class Dog < ValidatedObject::Base
-  attr_accessor :name, :birthday
+  attr_accessor :name, :birthday  # attr_reader is supported as well for read-only attributes
 
   validates :name, presence: true
-  validates :birthday, type: Date, allow_nil: true
+  validates :birthday, type: Date, allow_nil: true  # Strongly typed but optional
 end
 ```
 
@@ -41,16 +41,9 @@ validates :premium_membership, type: Boolean
 ### Instantiating and automatically validating
 
 ```ruby
-# This Dog instance validates itself at the end of instantiation. Thus, a
-# block-style constructor is necessary. Here, it succeeds and so doesn't raise
-# an exception.
+# This Dog instance validates itself at the end of instantiation.
 spot = Dog.new(name: 'Spot')
 ```
-
-> This example also demonstrates the extent of my meta-programming skills. ;-) I
-decided to simply implement my client code using inheritance and block
-constructors, ensuring that the `initializer` will always test for validity and
-throw an exeption if needed.
 
 ```ruby
 # We can also explicitly test for validity because all of
