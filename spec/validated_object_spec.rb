@@ -21,6 +21,16 @@ describe ValidatedObject do
     }.to raise_error(ArgumentError)
   end
 
+  it 'supports readonly attributes' do
+    class ImmutableApple < ValidatedObject::Base
+      attr_reader :diameter
+      validates :diameter, type: Float
+    end
+  
+    apple = ImmutableApple.new(diameter: 4.0)
+    expect( apple.diameter ).to eq 4.0
+  end
+
   context 'TypeValidator' do
     it 'verifies a valid type' do
       small_apple = Apple.new diameter: 2.0
