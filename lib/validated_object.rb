@@ -91,7 +91,7 @@ module ValidatedObject
           return if value.is_a?(expected_class)
         end
 
-        msg = options[:message] || "is class #{value.class}, not #{expected_class}"
+        msg = options[:message] || "is a #{value.class}, not a #{expected_class}"
         record.errors.add attribute, msg
       end
     end

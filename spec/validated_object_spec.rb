@@ -17,7 +17,7 @@ describe ValidatedObject do
         validates :diameter, type: Float
       end
 
-      small_apple = Apple1.new { |a| a.diameter = 2.0 }
+      small_apple = Apple1.new diameter: 2.0
       expect( small_apple ).to be_valid
     end
 
@@ -28,7 +28,7 @@ describe ValidatedObject do
       end
 
       expect {
-        Apple2.new { |a| a.diameter = '2' }
+        Apple2.new diameter: '2'
       }.to raise_error(ArgumentError)
     end
 
@@ -38,7 +38,7 @@ describe ValidatedObject do
         validates :diameter, type: Numeric
       end
 
-      small_apple = Apple3.new { |a| a.diameter = 5 }
+      small_apple = Apple3.new diameter: 5
       expect( small_apple ).to be_valid
     end
 
@@ -48,7 +48,7 @@ describe ValidatedObject do
         validates :rotten, type: Boolean
       end
 
-      rotten_apple = Apple4.new { |a| a.rotten = true }
+      rotten_apple = Apple4.new rotten: true
       expect( rotten_apple ).to be_valid
     end
 
@@ -58,7 +58,7 @@ describe ValidatedObject do
         validates :rotten, type: Boolean
       end
 
-      expect { Apple5.new { |a| a.rotten = 1 } }.to raise_error(ArgumentError)
+      expect { Apple5.new rotten: 1 }.to raise_error(ArgumentError)
     end
 
   end
