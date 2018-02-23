@@ -2,7 +2,7 @@
 
 # ValidatedObject
 
-Plain Old Ruby Objects + Rails Validations = self-checking Ruby objects. 
+Plain Old Ruby Objects + Rails Validations = self-checking Ruby objects.
 
 
 ## Goals
@@ -19,7 +19,7 @@ This is a small layer around
 
 ### Writing a self-validating object
 
-All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus a new one, `TypeValidator`.  
+All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates) are available, plus a new one, `TypeValidator`.
 
 ```ruby
 class Dog < ValidatedObject::Base
@@ -64,7 +64,7 @@ used to test an instance, plus the custom `check_validations!` convenience metho
 ```ruby
 spot.birthday = '2015-01-23'
 spot.valid?  # => false
-spot.check_validations!  # => ArgumentError: Birthday is class String, not Date
+spot.check_validations!  # => ArgumentError: Birthday is a String, not a Date
 ```
 
 Note the clear, explicit error message. These are great when reading a log
@@ -73,7 +73,7 @@ test it by making another attribute invalid:
 
 ```ruby
 spot.name = nil
-spot.check_validations!  # => ArgumentError: Name can't be blank; Birthday is class String, not Date
+spot.check_validations!  # => ArgumentError: Name can't be blank; Birthday is a String, not a Date
 ```
 
 
