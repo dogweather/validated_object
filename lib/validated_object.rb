@@ -56,6 +56,8 @@ module ValidatedObject
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization.
     def initialize(attributes=EMPTY_HASH)
+      raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
+
       attributes.keys.each do |key|
         self.send "#{key}=", attributes.fetch(key)
       end
