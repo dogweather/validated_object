@@ -29,6 +29,7 @@ describe ValidatedObject do
   
     apple = ImmutableApple.new(diameter: 4.0)
     expect( apple.diameter ).to eq 4.0
+    expect{ apple.diameter = 5.0 }.to raise_error(NoMethodError)
   end
 
   context 'TypeValidator' do
