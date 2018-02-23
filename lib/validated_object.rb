@@ -21,9 +21,7 @@ module ValidatedObject
   # @example Instantiating and automatically validating
   #   # The dog1 instance validates itself at the end of instantiation.
   #   # Here, it succeeds and so doesn't raise an exception.
-  #   dog1 = Dog.new do |d|
-  #     d.name = 'Spot'
-  #   end
+  #   dog1 = Dog.new name: 'Spot'
   #
   #   # We can also explicitly test for validity
   #   dog1.valid?  # => true
@@ -49,12 +47,11 @@ module ValidatedObject
     end
 
     # Instantiate and validate a new object.
-    #
-    # @yieldparam [ValidatedObject] new_object the yielded new object
-    #   for configuration.
+    # @example
+    #   maru = Dog.new(birthday: Date.today, name: 'Maru')
     #
     # @raise [ArgumentError] if the object is not valid at the
-    #   end of initialization.
+    #   end of initialization or `attributes` is not a Hash.
     def initialize(attributes=EMPTY_HASH)
       raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
 
@@ -79,8 +76,8 @@ module ValidatedObject
     # @example Ensure that weight is a number
     #   class Dog < ValidatedObject::Base
     #     attr_accessor :weight, :neutered
-    #     validates :weight, type: Numeric
-    #     validates :neutered, type: Boolean
+    #     validates :weight, type: Numeric  # Typed and required
+    #     validates :neutered, type: Boolean, allow_nil: true  # Typed but optional
     #   end
     class TypeValidator < ActiveModel::EachValidator
       # @return [nil]

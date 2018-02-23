@@ -44,9 +44,7 @@ validates :premium_membership, type: Boolean
 # This Dog instance validates itself at the end of instantiation. Thus, a
 # block-style constructor is necessary. Here, it succeeds and so doesn't raise
 # an exception.
-spot = Dog.new do |d|
-  d.name = 'Spot'
-end
+spot = Dog.new(name: 'Spot')
 ```
 
 > This example also demonstrates the extent of my meta-programming skills. ;-) I
@@ -93,7 +91,7 @@ I often use a validated object in a loop to import data, e.g.:
 dogs = []
 csv.next_row do |row|
   begin
-    dogs << Dog.new { |d| d.name = row.name }
+    dogs << Dog.new(name: row.name)
   rescue ArgumentError => e
     logger.warn(e)
   end
