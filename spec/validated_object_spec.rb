@@ -2,6 +2,11 @@
 require 'spec_helper'
 
 describe ValidatedObject do
+  class Apple < ValidatedObject::Base
+    attr_accessor :diameter
+    validates :diameter, type: Float
+  end
+
   it 'has a version number' do
     expect(ValidatedObject::VERSION).not_to be nil
   end
@@ -10,25 +15,21 @@ describe ValidatedObject do
     expect(ValidatedObject::Base).not_to be nil
   end
 
+  it 'throws an ArgumentError if non-hash is given' do
+    expect {
+      Apple.new(5)
+    }.to raise_error(ArgumentError)
+  end
+
   context 'TypeValidator' do
     it 'verifies a valid type' do
-      class Apple1 < ValidatedObject::Base
-        attr_accessor :diameter
-        validates :diameter, type: Float
-      end
-
-      small_apple = Apple1.new diameter: 2.0
+      small_apple = Apple.new diameter: 2.0
       expect( small_apple ).to be_valid
     end
 
     it 'rejects an invalid type' do
-      class Apple2 < ValidatedObject::Base
-        attr_accessor :diameter
-        validates :diameter, type: Float
-      end
-
       expect {
-        Apple2.new diameter: '2'
+        Apple.new diameter: '2'
       }.to raise_error(ArgumentError)
     end
 
