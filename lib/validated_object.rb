@@ -42,6 +42,8 @@ module ValidatedObject
   class Base
     include ActiveModel::Validations
 
+    EMPTY_HASH = {}.freeze
+
     # Implements a pseudo-boolean class.
     class Boolean
     end
@@ -53,8 +55,10 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization.
-    def initialize
-      yield(self)
+    def initialize(attributes=EMPTY_HASH)
+      attributes.keys.each do |key|
+        self.send "#{key}=", attributes.fetch(key)
+      end
       check_validations!
       self
     end
