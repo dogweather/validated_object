@@ -23,8 +23,10 @@ All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveM
 
 ```ruby
 class Dog < ValidatedObject::Base
+  # Plain old Ruby
   attr_accessor :name, :birthday  # attr_reader is supported as well for read-only attributes
 
+  # Plain old Rails
   validates :name, presence: true
   validates :birthday, type: Date, allow_nil: true  # Strongly typed but optional
 end
@@ -94,6 +96,10 @@ end
 The result is that `dogs` is an array of guaranteed valid Dog objects. And the
 error log lists unparseable rows with good info for tracking down problems in
 the data.
+
+### Use in code generation
+
+My [Schema.org microdata generation gem](https://github.com/dogweather/schema-dot-org) uses ValidatedObjects to recursively create well formed HTML / JSON-LD. 
 
 ## Installation
 
