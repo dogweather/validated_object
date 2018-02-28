@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_model'
 require 'validated_object/version'
 
@@ -55,9 +57,7 @@ module ValidatedObject
     def initialize(attributes=EMPTY_HASH)
       raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
 
-      attributes.keys.each do |key|
-        self.instance_variable_set "@#{key}".to_sym, attributes.fetch(key)
-      end
+      set_instance_variables from_hash: attributes
       check_validations!
       self
     end
@@ -84,15 +84,41 @@ module ValidatedObject
       def validate_each(record, attribute, value)
         expected_class = options[:with]
 
-        if expected_class == Boolean
-          return if value.is_a?(TrueClass) || value.is_a?(FalseClass)
-        else
-          return if value.is_a?(expected_class)
-        end
+        return if pseudo_boolean?(expected_class, value) ||
+                  expected_class?(expected_class, value)
 
-        msg = options[:message] || "is a #{value.class}, not a #{expected_class}"
-        record.errors.add attribute, msg
+        save_error(record, attribute, value, options)
+      end
+
+
+      private
+
+      def pseudo_boolean?(expected_class, value)
+        expected_class == Boolean && boolean?(value)
+      end
+
+      def expected_class?(expected_class, value)
+        value.is_a?(expected_class)
+      end
+
+      def boolean?(value)
+        value.is_a?(TrueClass) || value.is_a?(FalseClass)
+      end
+
+      def save_error(record, attribute, value, options)
+        record.errors.add attribute, 
+                          options[:message] || "is a #{value.class}, not a #{options[:with]}"
       end
     end
+
+
+    private 
+    
+    def set_instance_variables(from_hash:)
+      from_hash.each do |variable_name, variable_value|
+        self.instance_variable_set "@#{variable_name}".to_sym, variable_value
+      end
+    end
+
   end
 end

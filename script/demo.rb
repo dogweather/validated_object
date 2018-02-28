@@ -13,5 +13,5 @@ puts phoebe.inspect
 maru = Dog.new(birthday: Date.today, name: 'Maru')
 puts maru.inspect
 
-paris = Dog.new
-puts paris.inspect
+hiro = Dog.new(birthday: 'today')
+puts hiro.inspect
