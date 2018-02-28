@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_model'
 require 'validated_object/version'
 
@@ -85,7 +87,7 @@ module ValidatedObject
         return if pseudo_boolean?(expected_class, value)
         return if expected_class?(expected_class, value)
 
-        save_error(record, attribute, value, expected_class)
+        save_error(record, attribute, value, expected_class, options)
       end
 
 
@@ -103,7 +105,7 @@ module ValidatedObject
         value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
 
-      def save_error(record, attribute, value, expected_class)
+      def save_error(record, attribute, value, expected_class, options)
         record.errors.add attribute, 
                           options[:message] || "is a #{value.class}, not a #{expected_class}"
       end
