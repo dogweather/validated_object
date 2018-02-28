@@ -85,7 +85,7 @@ module ValidatedObject
         expected_class = options[:with]
 
         if expected_class == Boolean
-          return if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+          return if boolean?(value)
         else
           return if value.is_a?(expected_class)
         end
@@ -93,6 +93,13 @@ module ValidatedObject
         msg = options[:message] || "is a #{value.class}, not a #{expected_class}"
         record.errors.add attribute, msg
       end
+
+      private
+
+      def boolean?(value)
+        value.is_a?(TrueClass) || value.is_a?(FalseClass)
+      end
     end
+
   end
 end
