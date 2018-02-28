@@ -83,17 +83,20 @@ module ValidatedObject
         expected_class = options[:with]
 
         return if pseudo_boolean?(expected_class, value)
-        return if value.is_a?(expected_class)
+        return if expected_class?(expected_class, value)
 
         save_error(record, attribute, value, expected_class)
       end
 
 
       private
-    
 
       def pseudo_boolean?(expected_class, value)
         expected_class == Boolean && boolean?(value)
+      end
+
+      def expected_class?(expected_class, value)
+        value.is_a?(expected_class)
       end
 
       def boolean?(value)
