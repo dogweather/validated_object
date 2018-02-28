@@ -106,8 +106,8 @@ module ValidatedObject
     private 
     
     def set_instance_variables(from_hash:)
-      from_hash.keys.each do |key|
-        self.instance_variable_set "@#{key}".to_sym, from_hash.fetch(key)
+      from_hash.each do |variable_name, variable_value|
+        self.instance_variable_set "@#{variable_name}".to_sym, variable_value
       end
     end
 
