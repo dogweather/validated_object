@@ -55,9 +55,7 @@ module ValidatedObject
     def initialize(attributes=EMPTY_HASH)
       raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
 
-      attributes.keys.each do |key|
-        self.instance_variable_set "@#{key}".to_sym, attributes.fetch(key)
-      end
+      set_instance_variables from_hash: attributes
       check_validations!
       self
     end
@@ -101,6 +99,15 @@ module ValidatedObject
         expected_class = options[:with]
         record.errors.add attribute, 
                           options[:message] || "is a #{value.class}, not a #{expected_class}"
+      end
+    end
+
+
+    private 
+    
+    def set_instance_variables(from_hash:)
+      from_hash.keys.each do |key|
+        self.instance_variable_set "@#{key}".to_sym, from_hash.fetch(key)
       end
     end
 
