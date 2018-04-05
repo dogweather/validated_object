@@ -59,7 +59,7 @@ module ValidatedObject
 
       set_instance_variables from_hash: attributes
       check_validations!
-      self
+      return self
     end
 
     # Run any validations and raise an error if invalid.
@@ -112,13 +112,16 @@ module ValidatedObject
     end
 
 
-    private 
-    
+    private
+
     def set_instance_variables(from_hash:)
       from_hash.each do |variable_name, variable_value|
+        # Test for the attribute reader
+        self.send variable_name.to_sym
+
+        # Set value in a way that succeeds even if attr is read-only
         self.instance_variable_set "@#{variable_name}".to_sym, variable_value
       end
     end
-
   end
 end

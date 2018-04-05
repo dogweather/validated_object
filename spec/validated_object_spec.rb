@@ -26,10 +26,16 @@ describe ValidatedObject do
       attr_reader :diameter
       validates :diameter, type: Float
     end
-  
+
     apple = ImmutableApple.new(diameter: 4.0)
     expect( apple.diameter ).to eq 4.0
     expect{ apple.diameter = 5.0 }.to raise_error(NoMethodError)
+  end
+
+  it 'raises error on unknown attribute' do
+    expect {
+      Apple.new(diameter: 4.0, name: 'Bert')
+    }.to raise_error(NoMethodError)
   end
 
   context 'TypeValidator' do
