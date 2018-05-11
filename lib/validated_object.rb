@@ -7,7 +7,7 @@ module ValidatedObject
   # @abstract Subclass and add `attr_accessor` and validations
   #   to create custom validating objects.
   #
-  # Uses [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates)
+  # Uses {http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates ActiveModel::Validations}
   # to create self-validating Plain Old Ruby objects. This is especially
   # useful when importing data from one system into another. This class also
   # creates very readable error messages.
@@ -106,7 +106,7 @@ module ValidatedObject
       end
 
       def save_error(record, attribute, value, options)
-        record.errors.add attribute, 
+        record.errors.add attribute,
                           options[:message] || "is a #{value.class}, not a #{options[:with]}"
       end
     end
