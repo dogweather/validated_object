@@ -44,7 +44,11 @@ module ValidatedObject
 
     EMPTY_HASH = {}.freeze
 
-    # Implements a pseudo-boolean class.
+    # A private class definition, not intended to
+    # be used directly. Implements a pseudo-boolean class
+    # enabling validations like this:
+    #
+    #   validates :enabled, type: Boolean
     class Boolean
     end
 
@@ -63,7 +67,9 @@ module ValidatedObject
     end
 
     # Run any validations and raise an error if invalid.
+    #
     # @raise [ArgumentError] if any validations fail.
+    # @return [ValidatedObject::Base] the receiver
     def check_validations!
       raise ArgumentError, errors.full_messages.join('; ') if invalid?
       self
@@ -72,6 +78,8 @@ module ValidatedObject
     # A custom validator which ensures an object is an instance of a class
     # or a subclass. It supports a pseudo-boolean class for convenient
     # validation. (Ruby doesn't have a built-in Boolean.)
+    #
+    # Automatically used in a `type` validation:
     #
     # @example Ensure that weight is a number
     #   class Dog < ValidatedObject::Base
