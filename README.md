@@ -28,6 +28,8 @@ class Dog < ValidatedObject::Base
 
   # Plain old Rails
   validates :name, presence: true
+  
+  # A new type-validation if you'd like to use it
   validates :birthday, type: Date, allow_nil: true  # Strongly typed but optional
 end
 ```
