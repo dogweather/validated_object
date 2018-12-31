@@ -34,7 +34,7 @@ class Dog < ValidatedObject::Base
 end
 ```
 
-The `TypeValidator` is what enables `type: Date`, above. All classes can be checked, as well as a pseudo-class `Boolean`. E.g.:
+The included `TypeValidator` is what enables `type: Date`, above. All classes can be checked, as well as a pseudo-class `Boolean`. E.g.:
 
 ```ruby
 #...
