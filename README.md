@@ -2,7 +2,7 @@
 
 # ValidatedObject
 
-Plain Old Ruby Objects + Rails Validations = self-checking Ruby objects.
+Plain Old Ruby Objects + Rails Validations = **self-checking Ruby objects**.
 
 
 ## Goals
