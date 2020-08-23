@@ -1,5 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'validated_object/version'
 
@@ -7,11 +8,11 @@ Gem::Specification.new do |spec|
   spec.name          = 'validated_object'
   spec.version       = ValidatedObject::VERSION
   spec.authors       = ['Robb Shecter']
-  spec.email         = ['robb@weblaws.org']
+  spec.email         = ['robb@public.law']
 
   spec.summary       = 'Self-validating plain Ruby objects.'
   spec.description   = 'A small wrapper around ActiveModel Validations.'
-  spec.homepage      = 'https://github.com/dogweather/validated_object'
+  spec.homepage      = 'https://github.com/public-law/validated_object'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -27,8 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.10'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '>= 12.3.3'
   spec.add_development_dependency 'rspec'
 
   spec.add_runtime_dependency 'activemodel', '>= 3.2.21'
