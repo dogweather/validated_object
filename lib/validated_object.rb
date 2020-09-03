@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'active_model'
@@ -41,8 +42,9 @@ module ValidatedObject
   # @see http://www.rubyinside.com/rails-3-0s-activemodel-how-to-give-ruby-classes-some-activerecord-magic-2937.html Rails 3.0′s ActiveModel: How To Give Ruby Classes Some ActiveRecord Magic, Peter Cooper
   class Base
     include ActiveModel::Validations
+    include T::Sig
 
-    EMPTY_HASH = {}.freeze
+    EMPTY_HASH = T.let({}.freeze, T::Hash[Symbol, T.untyped])
 
     # A private class definition, not intended to
     # be used directly. Implements a pseudo-boolean class
