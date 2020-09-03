@@ -42,7 +42,7 @@ module ValidatedObject
   # @see http://www.rubyinside.com/rails-3-0s-activemodel-how-to-give-ruby-classes-some-activerecord-magic-2937.html Rails 3.0′s ActiveModel: How To Give Ruby Classes Some ActiveRecord Magic, Peter Cooper
   class Base
     include ActiveModel::Validations
-    include T::Sig
+    extend T::Sig
 
     EMPTY_HASH = T.let({}.freeze, T::Hash[Symbol, T.untyped])
 
@@ -60,18 +60,20 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization or `attributes` is not a Hash.
+    sig {params(attributes: T::Hash[Symbol, T.untyped]).returns(ValidatedObject::Base)}
     def initialize(attributes=EMPTY_HASH)
       raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
 
       set_instance_variables from_hash: attributes
       check_validations!
-      return self
+      self
     end
 
     # Run any validations and raise an error if invalid.
     #
     # @raise [ArgumentError] if any validations fail.
     # @return [ValidatedObject::Base] the receiver
+    sig {returns(ValidatedObject::Base)}
     def check_validations!
       raise ArgumentError, errors.full_messages.join('; ') if invalid?
       self
