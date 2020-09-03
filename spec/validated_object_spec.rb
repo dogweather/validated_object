@@ -16,10 +16,10 @@ describe ValidatedObject do
     expect(ValidatedObject::Base).not_to be nil
   end
 
-  it 'throws an ArgumentError if non-hash is given' do
+  it 'throws a TypeError if non-hash is given' do
     expect {
       Apple.new(5)
-    }.to raise_error(ArgumentError)
+    }.to raise_error(TypeError)
   end
 
   it 'supports readonly attributes' do

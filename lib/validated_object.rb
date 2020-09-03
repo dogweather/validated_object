@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require 'active_model'
@@ -45,7 +45,9 @@ module ValidatedObject
     include ActiveModel::Validations
     extend T::Sig
 
-    EMPTY_HASH = T.let({}.freeze, T::Hash[Symbol, T.untyped])
+    SymbolHash = T.type_alias{ T::Hash[Symbol, T.untyped] }
+
+    EMPTY_HASH = T.let({}.freeze, SymbolHash)
 
     # A private class definition, not intended to
     # be used directly. Implements a pseudo-boolean class
@@ -61,10 +63,8 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization or `attributes` is not a Hash.
-    sig {params(attributes: T::Hash[Symbol, T.untyped]).returns(ValidatedObject::Base)}
+    sig {params(attributes: SymbolHash).returns(ValidatedObject::Base)}
     def initialize(attributes=EMPTY_HASH)
-      raise ArgumentError, "#{attributes} is not a Hash" unless attributes.is_a?(Hash)
-
       set_instance_variables from_hash: attributes
       check_validations!
       self
@@ -93,40 +93,65 @@ module ValidatedObject
     #     validates :neutered, type: Boolean, allow_nil: true  # Typed but optional
     #   end
     class TypeValidator < ActiveModel::EachValidator
+      extend T::Sig
+
       # @return [nil]
+      sig do
+        params(
+          record: T.untyped,
+          attribute: T.untyped,
+          value: T.untyped
+        )
+        .void
+      end
       def validate_each(record, attribute, value)
-        expected_class = options[:with]
+        validation_options = T.let(options, SymbolHash)
+
+        expected_class = validation_options[:with]
 
         return if pseudo_boolean?(expected_class, value) ||
                   expected_class?(expected_class, value)
 
-        save_error(record, attribute, value, options)
+        save_error(record, attribute, value, validation_options)
       end
 
 
       private
 
+      sig {params(expected_class: T.untyped, value: T.untyped).returns(T.untyped)}
       def pseudo_boolean?(expected_class, value)
         expected_class == Boolean && boolean?(value)
       end
 
+      sig {params(expected_class: T.untyped, value: T.untyped).returns(T.untyped)}
       def expected_class?(expected_class, value)
         value.is_a?(expected_class)
       end
 
+      sig {params(value: T.untyped).returns(T.untyped)}
       def boolean?(value)
         value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
 
-      def save_error(record, attribute, value, options)
+      sig do
+        params(
+          record: T.untyped,
+          attribute: T.untyped,
+          value: T.untyped,
+          validation_options: SymbolHash
+        )
+        .void
+      end
+      def save_error(record, attribute, value, validation_options)
         record.errors.add attribute,
-                          options[:message] || "is a #{value.class}, not a #{options[:with]}"
+                          validation_options[:message] || "is a #{value.class}, not a #{validation_options[:with]}"
       end
     end
 
 
     private
 
+    sig {params(from_hash: SymbolHash).void}
     def set_instance_variables(from_hash:)
       from_hash.each do |variable_name, variable_value|
         # Test for the attribute reader
