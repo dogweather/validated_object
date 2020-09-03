@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'active_model'
+require 'sorbet-runtime'
 require 'validated_object/version'
 
 module ValidatedObject
