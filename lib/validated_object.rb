@@ -45,7 +45,7 @@ module ValidatedObject
     include ActiveModel::Validations
     extend T::Sig
 
-    SymbolHash = T.type_alias{ T::Hash[Symbol, T.untyped] }
+    SymbolHash = T.type_alias { T::Hash[Symbol, T.untyped] }
 
     EMPTY_HASH = T.let({}.freeze, SymbolHash)
 
@@ -63,8 +63,8 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization or `attributes` is not a Hash.
-    sig {params(attributes: SymbolHash).returns(ValidatedObject::Base)}
-    def initialize(attributes=EMPTY_HASH)
+    sig { params(attributes: SymbolHash).returns(ValidatedObject::Base)}
+    def initialize(attributes = EMPTY_HASH)
       set_instance_variables from_hash: attributes
       check_validations!
       self
@@ -77,6 +77,7 @@ module ValidatedObject
     sig {returns(ValidatedObject::Base)}
     def check_validations!
       raise ArgumentError, errors.full_messages.join('; ') if invalid?
+
       self
     end
 
@@ -102,7 +103,7 @@ module ValidatedObject
           attribute: T.untyped,
           value: T.untyped
         )
-        .void
+          .void
       end
       def validate_each(record, attribute, value)
         validation_options = T.let(options, SymbolHash)
@@ -114,7 +115,6 @@ module ValidatedObject
 
         save_error(record, attribute, value, validation_options)
       end
-
 
       private
 
@@ -140,7 +140,7 @@ module ValidatedObject
           value: T.untyped,
           validation_options: SymbolHash
         )
-        .void
+          .void
       end
       def save_error(record, attribute, value, validation_options)
         record.errors.add attribute,
@@ -148,17 +148,16 @@ module ValidatedObject
       end
     end
 
-
     private
 
     sig {params(from_hash: SymbolHash).void}
     def set_instance_variables(from_hash:)
       from_hash.each do |variable_name, variable_value|
         # Test for the attribute reader
-        self.send variable_name.to_sym
+        send variable_name.to_sym
 
         # Set value in a way that succeeds even if attr is read-only
-        self.instance_variable_set "@#{variable_name}".to_sym, variable_value
+        instance_variable_set "@#{variable_name}".to_sym, variable_value
       end
     end
   end
