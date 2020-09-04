@@ -1,3 +1,4 @@
+# typed: ignore
 require 'date'
 require 'validated_object'
 
