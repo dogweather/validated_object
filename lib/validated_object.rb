@@ -63,18 +63,18 @@ module ValidatedObject
     #
     # @raise [ArgumentError] if the object is not valid at the
     #   end of initialization or `attributes` is not a Hash.
-    sig { params(attributes: SymbolHash).returns(ValidatedObject::Base)}
+    sig { params(attributes: SymbolHash).void }
     def initialize(attributes = EMPTY_HASH)
       set_instance_variables from_hash: attributes
       check_validations!
-      self
+      nil
     end
 
     # Run any validations and raise an error if invalid.
     #
     # @raise [ArgumentError] if any validations fail.
     # @return [ValidatedObject::Base] the receiver
-    sig {returns(ValidatedObject::Base)}
+    sig { returns(ValidatedObject::Base) }
     def check_validations!
       raise ArgumentError, errors.full_messages.join('; ') if invalid?
 
@@ -118,17 +118,17 @@ module ValidatedObject
 
       private
 
-      sig {params(expected_class: T.untyped, value: T.untyped).returns(T.untyped)}
+      sig { params(expected_class: T.untyped, value: T.untyped).returns(T.untyped) }
       def pseudo_boolean?(expected_class, value)
         expected_class == Boolean && boolean?(value)
       end
 
-      sig {params(expected_class: T.untyped, value: T.untyped).returns(T.untyped)}
+      sig { params(expected_class: T.untyped, value: T.untyped).returns(T.untyped) }
       def expected_class?(expected_class, value)
         value.is_a?(expected_class)
       end
 
-      sig {params(value: T.untyped).returns(T.untyped)}
+      sig { params(value: T.untyped).returns(T.untyped) }
       def boolean?(value)
         value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
@@ -150,7 +150,7 @@ module ValidatedObject
 
     private
 
-    sig {params(from_hash: SymbolHash).void}
+    sig { params(from_hash: SymbolHash).void }
     def set_instance_variables(from_hash:)
       from_hash.each do |variable_name, variable_value|
         # Test for the attribute reader
