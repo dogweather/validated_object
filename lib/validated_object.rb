@@ -70,6 +70,11 @@ module ValidatedObject
       nil
     end
 
+    def validated_attr(attribute_name, **validation_options)
+      attr_reader attribute_name
+      validates attribute_name, validation_options
+    end
+
     # Run any validations and raise an error if invalid.
     #
     # @raise [ArgumentError] if any validations fail.
