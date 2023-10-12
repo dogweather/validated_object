@@ -3,7 +3,7 @@
 # ValidatedObject
 
 Plain Old Ruby Objects + Rails Validations = **self-checking Ruby objects**.
-Here's a quick example of a common case: a class with an immutable,
+Here's a quick example of a common case: an immutable,
 required, type-checked attribute:
 
 ```ruby
