@@ -3,7 +3,7 @@
 # ValidatedObject
 
 Plain Old Ruby Objects + Rails Validations = **self-checking Ruby objects**.
-Here's a quick example of the most common case: a class with one immutable,
+Here's a quick example of a common case: a class with an immutable,
 required, type-checked attribute:
 
 ```ruby
@@ -24,7 +24,7 @@ I use classes like these as Data Transfer Objects at my system boundaries.
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 18 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website microdata generation](https://github.com/dogweather/schema-dot-org).
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website microdata generation](https://github.com/dogweather/schema-dot-org).
 
 
 ## Usage
@@ -37,7 +37,7 @@ All of the [ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveM
 ```ruby
 class Dog < ValidatedObject::Base
   # Plain old Ruby
-  attr_accessor :name, :birthday  # attr_reader is supported as well for read-only attributes
+  attr_accessor :name, :birthday
 
   # Plain old Rails
   validates :name, presence: true
@@ -47,7 +47,7 @@ class Dog < ValidatedObject::Base
 end
 ```
 
-Here's an immutable version of the `Dog` class:
+We can make it immutable with `attr_reader`:
 
 ```ruby
 class ImmutableDog < ValidatedObject::Base
@@ -59,14 +59,14 @@ end
 ```
 
 > `attr_reader` followed by `validates` is such a common pattern that
-> there's a second DSL which wraps them up into one line: `validates_attr`.
+> there's a second DSL which wraps them up into one call: `validates_attr`.
 
-Here's an immutable version of the `Dog` class using the simplified DSL:
+Here's the immutable version of `Dog` re-written with the simplified DSL:
 
 ```ruby
 class ImmutableDog < ValidatedObject::Base
   validates_attr :name, presence: true
-  validates_attr :birthday, type: Date, allow_nil: true  # Strongly typed but optional
+  validates_attr :birthday, type: Date, allow_nil: true 
 end
 ```
 
