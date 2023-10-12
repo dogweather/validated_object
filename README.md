@@ -24,7 +24,7 @@ I use classes like these as Data Transfer Objects at my system boundaries.
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website microdata generation](https://github.com/dogweather/schema-dot-org).
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website structured data](https://github.com/dogweather/schema-dot-org).
 
 
 ## Usage
