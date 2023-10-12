@@ -3,6 +3,19 @@
 # ValidatedObject
 
 Plain Old Ruby Objects + Rails Validations = **self-checking Ruby objects**.
+Here's a quick example of the most common case: a class with one immutable,
+required, type-checked attribute:
+
+```ruby
+class Person < ValidatedObject::Base
+  validated_attr :name, type: String, presence: true
+end
+
+# Using it
+me = Person.new(name: 'Robb')
+```
+
+I use classes like these as Data Transfer Objects at my system boundaries.
 
 
 ## Goals
@@ -33,6 +46,31 @@ class Dog < ValidatedObject::Base
   validates :birthday, type: Date, allow_nil: true  # Strongly typed but optional
 end
 ```
+
+Here's an immutable version of the `Dog` class:
+
+```ruby
+class ImmutableDog < ValidatedObject::Base
+  attr_reader :name, :birthday
+
+  validates :name, presence: true
+  validates :birthday, type: Date, allow_nil: true
+end
+```
+
+> `attr_reader` followed by `validates` is such a common pattern that
+> there's a second DSL which wraps them up into one line: `validates_attr`.
+
+Here's an immutable version of the `Dog` class using the simplified DSL:
+
+```ruby
+class ImmutableDog < ValidatedObject::Base
+  validates_attr :name, presence: true
+  validates_attr :birthday, type: Date, allow_nil: true  # Strongly typed but optional
+end
+```
+
+### About that `type:` check
 
 The included `TypeValidator` is what enables `type: Date`, above. All classes can be checked, as well as a pseudo-class `Boolean`. E.g.:
 
