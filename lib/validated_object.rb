@@ -4,6 +4,8 @@
 require 'active_model'
 require 'sorbet-runtime'
 require 'validated_object/version'
+require 'validated_object/simplified_api'
+
 
 module ValidatedObject
   # @abstract Subclass and add `attr_accessor` and validations
@@ -43,6 +45,7 @@ module ValidatedObject
   # @see http://www.rubyinside.com/rails-3-0s-activemodel-how-to-give-ruby-classes-some-activerecord-magic-2937.html Rails 3.0′s ActiveModel: How To Give Ruby Classes Some ActiveRecord Magic, Peter Cooper
   class Base
     include ActiveModel::Validations
+    include SimplifiedApi
     extend T::Sig
 
     SymbolHash = T.type_alias { T::Hash[Symbol, T.untyped] }
@@ -68,6 +71,11 @@ module ValidatedObject
       set_instance_variables from_hash: attributes
       check_validations!
       nil
+    end
+
+    def validated_attr(attribute_name, **validation_options)
+      attr_reader attribute_name
+      validates attribute_name, validation_options
     end
 
     # Run any validations and raise an error if invalid.
