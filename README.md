@@ -139,7 +139,7 @@ the data.
 
 ### Use in code generation
 
-My [Schema.org microdata generation gem](https://github.com/dogweather/schema-dot-org) uses ValidatedObjects to recursively create well formed HTML / JSON-LD. 
+My [Schema.org structured data gem](https://github.com/dogweather/schema-dot-org) uses ValidatedObjects to recursively create well formed HTML / JSON-LD. 
 
 ## Installation
 
