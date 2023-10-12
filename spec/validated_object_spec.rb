@@ -8,19 +8,23 @@ describe ValidatedObject do
     validates :diameter, type: Float
   end
 
+
   it 'has a version number' do
     expect(ValidatedObject::VERSION).not_to be nil
   end
 
+
   it 'can be referenced' do
     expect(ValidatedObject::Base).not_to be nil
   end
+
 
   it 'throws a TypeError if non-hash is given' do
     expect {
       Apple.new(5)
     }.to raise_error(TypeError)
   end
+
 
   it 'supports readonly attributes' do
     class ImmutableApple < ValidatedObject::Base
@@ -33,12 +37,25 @@ describe ValidatedObject do
     expect{ apple.diameter = 5.0 }.to raise_error(NoMethodError)
   end
 
+
+  it 'supports simplified readonly attributes' do
+    class ImmutableApple < ValidatedObject::Base
+      validated_attr :diameter, type: Float
+    end
+
+    apple = ImmutableApple.new(diameter: 4.0)
+    expect( apple.diameter ).to eq 4.0
+    expect{ apple.diameter = 5.0 }.to raise_error(NoMethodError)
+  end
+
+
   it 'raises error on unknown attribute' do
     expect {
       Apple.new(diameter: 4.0, name: 'Bert')
     }.to raise_error(NoMethodError)
   end
 
+  
   context 'TypeValidator' do
     it 'verifies a valid type' do
       small_apple = Apple.new diameter: 2.0
