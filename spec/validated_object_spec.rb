@@ -62,7 +62,7 @@ describe ValidatedObject do
       expect( small_apple ).to be_valid
     end
 
-    
+
     it 'rejects an invalid type' do
       expect {
         Apple.new diameter: '2'
@@ -76,6 +76,16 @@ describe ValidatedObject do
 
       small_apple = Apple2.new diameter: 5.5
       expect( small_apple ).to be_valid
+    end
+
+
+    it 'can verify a subclass with a new attribute' do
+      class Apple2 < Apple
+        validated_attr :color, type: String
+      end
+
+      red_apple = Apple2.new(diameter: 5.5, color: 'red')
+      expect( red_apple ).to be_valid
     end
 
 
