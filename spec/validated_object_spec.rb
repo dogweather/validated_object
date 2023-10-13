@@ -58,7 +58,7 @@ describe ValidatedObject do
   
   context 'TypeValidator' do
     it 'verifies a valid type' do
-      small_apple = Apple.new diameter: 2.0
+      small_apple = Apple.new(diameter: 2.0)
       expect( small_apple ).to be_valid
     end
 
@@ -74,7 +74,7 @@ describe ValidatedObject do
       class Apple2 < Apple
       end
 
-      small_apple = Apple2.new diameter: 5.5
+      small_apple = Apple2.new(diameter: 5.5)
       expect( small_apple ).to be_valid
     end
 
