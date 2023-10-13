@@ -58,9 +58,10 @@ describe ValidatedObject do
   
   context 'TypeValidator' do
     it 'verifies a valid type' do
-      small_apple = Apple.new diameter: 2.0
+      small_apple = Apple.new(diameter: 2.0)
       expect( small_apple ).to be_valid
     end
+
 
     it 'rejects an invalid type' do
       expect {
@@ -68,33 +69,44 @@ describe ValidatedObject do
       }.to raise_error(ArgumentError)
     end
 
+
     it 'can verify a subclass' do
-      class Apple3 < ValidatedObject::Base
-        attr_accessor :diameter
-        validates :diameter, type: Numeric
+      class Apple2 < Apple
       end
 
-      small_apple = Apple3.new diameter: 5
+      small_apple = Apple2.new(diameter: 5.5)
       expect( small_apple ).to be_valid
     end
 
+
+    it 'can verify a subclass with a new attribute' do
+      class Apple2 < Apple
+        validated_attr :color, type: String
+      end
+
+      red_apple = Apple2.new(diameter: 5.5, color: 'red')
+      expect( red_apple ).to be_valid
+    end
+
+
     it 'handles Boolean types' do
+      class Apple3 < ValidatedObject::Base
+        attr_accessor :rotten
+        validates :rotten, type: Boolean
+      end
+
+      rotten_apple = Apple3.new rotten: true
+      expect( rotten_apple ).to be_valid
+    end
+
+
+    it 'rejects invalid boolean types' do
       class Apple4 < ValidatedObject::Base
         attr_accessor :rotten
         validates :rotten, type: Boolean
       end
 
-      rotten_apple = Apple4.new rotten: true
-      expect( rotten_apple ).to be_valid
-    end
-
-    it 'rejects invalid boolean types' do
-      class Apple5 < ValidatedObject::Base
-        attr_accessor :rotten
-        validates :rotten, type: Boolean
-      end
-
-      expect { Apple5.new rotten: 1 }.to raise_error(ArgumentError)
+      expect { Apple4.new rotten: 1 }.to raise_error(ArgumentError)
     end
 
   end
