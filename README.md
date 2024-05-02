@@ -4,8 +4,7 @@
 
 `Plain Old Ruby` + `Rails Validations` = **self-checking Ruby objects**.
 
-A quick example of a common case: an immutable,
-required, type-checked attribute:
+This `Person` class forces the `name` to be not nil:
 
 ```ruby
 class Person < ValidatedObject::Base
