@@ -9,7 +9,8 @@ required, type-checked attribute:
 
 ```ruby
 class Person < ValidatedObject::Base
-  validated_attr :name, type: String, presence: true
+  attr_reader :name
+  validates   :name, presence: true
 end
 
 # Instantiating it runs the validations.
