@@ -12,7 +12,7 @@ class Person < ValidatedObject::Base
   validated_attr :name, type: String, presence: true
 end
 
-# Using it
+# Instantiating it runs the validations.
 me = Person.new(name: 'Robb')
 ```
 
