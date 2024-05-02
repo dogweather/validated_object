@@ -48,7 +48,7 @@ class Dog < ValidatedObject::Base
 end
 ```
 
-We can make it immutable with `attr_reader`:
+Alternatively, we could make it immutable with `attr_reader`:
 
 ```ruby
 class ImmutableDog < ValidatedObject::Base
@@ -62,7 +62,7 @@ end
 > `attr_reader` followed by `validates` is such a common pattern that
 > there's a second DSL which wraps them up into one call: `validates_attr`.
 
-Here's the immutable version of `Dog` re-written with the simplified DSL:
+Here's the immutable version of `Dog` re-written with the new, simplified DSL:
 
 ```ruby
 class ImmutableDog < ValidatedObject::Base
