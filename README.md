@@ -10,7 +10,7 @@ required, type-checked attribute:
 ```ruby
 class Person < ValidatedObject::Base
   attr_reader :name
-  validates   :name, presence: true
+  validates :name, presence: true
 end
 
 # Instantiating it runs the validations.
