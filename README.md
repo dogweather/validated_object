@@ -48,7 +48,7 @@ class Dog < ValidatedObject::Base
 end
 ```
 
-Alternatively, we could make it immutable with `attr_reader`:
+Alternatively, we could make it immutable with Ruby's [attr_reader](https://bootrails.com/blog/ruby-attr-accessor-attr-writer-attr-reader/#2-attr_reader-attr_writer--attr_accessor):
 
 ```ruby
 class ImmutableDog < ValidatedObject::Base
