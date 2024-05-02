@@ -14,7 +14,7 @@ end
 
 # Instantiating it runs the validations.
 me  = Person.new(name: 'Robb')
-you = Person.new(name: '')      # => ArgumentError: "Name can't be blank"
+you = Person.new(name: '')     # => ArgumentError: "Name can't be blank"
 ```
 
 Note how Person's two lines of code are nothing new: `attr_reader` is standard Ruby. [`validates`](https://guides.rubyonrails.org/active_record_validations.html) is standard Rails. I use classes like these as Data Transfer Objects at my system boundaries.
@@ -26,7 +26,7 @@ Note how Person's two lines of code are nothing new: `attr_reader` is standard R
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use Rails Validations, you're good to go. I wrote this to help with CSV data imports and [website structured data](https://github.com/dogweather/schema-dot-org).
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use [Rails Validations](https://guides.rubyonrails.org/active_record_validations.html), you're good to go. I wrote this to help with CSV data imports and [website structured data](https://github.com/dogweather/schema-dot-org).
 
 
 ## Usage
