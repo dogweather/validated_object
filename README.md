@@ -4,7 +4,7 @@
 
 `Plain Old Ruby` + `Rails Validations` = **self-checking Ruby objects**.
 
-## Example: This `Person` class ensures that the `name` isn't blank (nil or empty string):
+## Example: A `Person` class that ensures its `name` isn't blank (nil or empty string):
 
 ```ruby
 class Person < ValidatedObject::Base
