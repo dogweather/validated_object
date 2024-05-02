@@ -59,8 +59,7 @@ class ImmutableDog < ValidatedObject::Base
 end
 ```
 
-> `attr_reader` followed by `validates` is such a common pattern that
-> there's a second DSL which wraps them up into one call: `validates_attr`.
+### `attr_reader` followed by `validates` is such a common pattern that there's a second DSL which wraps them up into one call: `validates_attr`.
 
 Here's the immutable version of `Dog` re-written with the new, simplified DSL:
 
