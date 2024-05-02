@@ -17,7 +17,7 @@ end
 me = Person.new(name: 'Robb')
 ```
 
-Note how Person's two lines of code are nothing new: `attr_reader` is standard Ruby. [`validates` is standard Rails. I use classes like these as Data Transfer Objects at my system boundaries.
+Note how Person's two lines of code are nothing new: `attr_reader` is standard Ruby. [`validates`](https://guides.rubyonrails.org/active_record_validations.html) is standard Rails. I use classes like these as Data Transfer Objects at my system boundaries.
 
 
 ## Goals
