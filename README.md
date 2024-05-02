@@ -4,7 +4,7 @@
 
 `Plain Old Ruby` + `Rails Validations` = **self-checking Ruby objects**.
 
-Here's a quick example of a common case: an immutable,
+A quick example of a common case: an immutable,
 required, type-checked attribute:
 
 ```ruby
