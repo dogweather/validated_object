@@ -25,7 +25,7 @@ Note how Person's two lines of code are nothing new: `attr_reader` is standard R
 * Clean, minimal syntax
 
 This is a small layer around
-[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use [Rails Validations](https://guides.rubyonrails.org/active_record_validations.html), you're good to go. I wrote this to help with CSV data imports and [website structured data](https://github.com/dogweather/schema-dot-org).
+[ActiveModel::Validations](http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates). (About 25 lines of code.) So if you know how to use [Rails Validations](https://guides.rubyonrails.org/active_record_validations.html), you're good to go. I wrote this to help with CSV data imports and [website structured data](https://github.com/public-law/schema-dot-org).
 
 
 ## Usage
@@ -141,7 +141,7 @@ the data.
 
 ### Use in code generation
 
-My [Schema.org structured data gem](https://github.com/dogweather/schema-dot-org) uses ValidatedObjects to recursively create well formed HTML / JSON-LD. 
+My [Schema.org structured data gem](https://github.com/public-law/schema-dot-org) uses ValidatedObjects to recursively create well formed HTML / JSON-LD. 
 
 ## Installation
 
