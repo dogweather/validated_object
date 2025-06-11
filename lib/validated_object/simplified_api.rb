@@ -12,6 +12,11 @@ module ValidatedObject
         attr_reader attribute
         validates attribute, *options
       end
+
+      # Allow 'validated' as a synonym for 'validates'.
+      def validated(*args, **kwargs, &block)
+        validates(*args, **kwargs, &block)
+      end
     end
 
   end
