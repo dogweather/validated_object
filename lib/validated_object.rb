@@ -156,6 +156,11 @@ module ValidatedObject
       end
     end
 
+    # Allow 'validated' as a synonym for 'validates'
+    def self.validated(*args, **kwargs, &block)
+      validates(*args, **kwargs, &block)
+    end
+
     private
 
     sig { params(from_hash: SymbolHash).void }

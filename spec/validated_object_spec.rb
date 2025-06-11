@@ -55,7 +55,7 @@ describe ValidatedObject do
     }.to raise_error(NoMethodError)
   end
 
-  
+
   context 'TypeValidator' do
     it 'verifies a valid type' do
       small_apple = Apple.new(diameter: 2.0)
@@ -107,6 +107,17 @@ describe ValidatedObject do
       end
 
       expect { Apple4.new rotten: 1 }.to raise_error(ArgumentError)
+    end
+
+
+    it "allows 'validated' as a synonym for 'validates'" do
+      class SynonymApple < ValidatedObject::Base
+        attr_accessor :diameter
+        validated :diameter, type: Float
+      end
+      apple = SynonymApple.new(diameter: 1.0)
+      expect(apple).to be_valid
+      expect { SynonymApple.new(diameter: 'bad') }.to raise_error(ArgumentError)
     end
 
   end
