@@ -115,8 +115,17 @@ module ValidatedObject
       end
       def validate_each(record, attribute, value)
         validation_options = T.let(options, SymbolHash)
-
         expected_class = validation_options[:with]
+
+        # Support type: Array, element_type: ElementType
+        if expected_class == Array && validation_options[:element_type]
+          return save_error(record, attribute, value, validation_options) unless value.is_a?(Array)
+          element_type = validation_options[:element_type]
+          unless value.all? { |el| el.is_a?(element_type) }
+            record.errors.add attribute, validation_options[:message] || "contains non-#{element_type} elements"
+          end
+          return
+        end
 
         return if pseudo_boolean?(expected_class, value) ||
                   expected_class?(expected_class, value)
@@ -155,6 +164,9 @@ module ValidatedObject
                           validation_options[:message] || "is a #{value.class}, not a #{validation_options[:with]}"
       end
     end
+
+    # Register the TypeValidator with ActiveModel so `type:` validation option works
+    ActiveModel::Validations.const_set(:TypeValidator, TypeValidator) unless ActiveModel::Validations.const_defined?(:TypeValidator)
 
     # Allow 'validated' as a synonym for 'validates'
     def self.validated(*args, **kwargs, &block)

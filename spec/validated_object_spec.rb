@@ -121,4 +121,47 @@ describe ValidatedObject do
     end
 
   end
+
+
+  context 'Array element type validation' do
+    class Comment; end
+    class Post < ValidatedObject::Base
+      validates_attr :comments, type: Array, element_type: Comment, allow_nil: true
+      validates_attr :tags, type: Array, element_type: String, allow_nil: true
+    end
+
+    it 'accepts an array of correct element type (element_type: syntax)' do
+      c1, c2 = Comment.new, Comment.new
+      post = Post.new(comments: [c1, c2])
+      expect(post).to be_valid
+    end
+
+    it 'rejects an array with wrong element type (element_type: syntax)' do
+      expect {
+        Post.new(comments: [Comment.new, "bad"])
+      }.to raise_error(ArgumentError, /contains non-Comment elements/)
+    end
+
+    it 'accepts an array of correct element type (element_type: syntax)' do
+      post = Post.new(tags: ["foo", "bar"])
+      expect(post).to be_valid
+    end
+
+    it 'rejects an array with wrong element type (element_type: syntax)' do
+      expect {
+        Post.new(tags: ["foo", 123])
+      }.to raise_error(ArgumentError, /contains non-String elements/)
+    end
+
+    it 'rejects non-array values when element_type is specified' do
+      expect {
+        Post.new(comments: "not an array")
+      }.to raise_error(ArgumentError, /is a String, not a Array/)
+    end
+
+    it 'allows nil if allow_nil: true' do
+      post = Post.new(comments: nil, tags: nil)
+      expect(post).to be_valid
+    end
+  end
 end
